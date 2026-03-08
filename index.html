@@ -3,57 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subhash Pro Saver</title>
+    <title>Subhash Pro Saver - Final Build</title>
+    
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+
     <style>
-        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f0f2f5; margin: 0; padding: 15px; display: flex; justify-content: center; }
-        .container { background-color: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); width: 100%; max-width: 500px; border-top: 8px solid #28a745; }
-        h2 { color: #28a745; text-align: center; margin-bottom: 20px; }
-        textarea { width: 100%; height: 250px; padding: 12px; border: 2px solid #ddd; border-radius: 10px; font-size: 18px; resize: none; box-sizing: border-box; }
-        .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        button { padding: 14px; border: none; border-radius: 8px; color: white; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.3s; }
-        .btn-txt { background-color: #007bff; }
-        .btn-doc { background-color: #2196F3; }
-        .btn-html { background-color: #ff9800; }
-        .btn-print { background-color: #dc3545; grid-column: span 2; font-size: 18px; margin-top: 5px; }
-        button:active { transform: scale(0.95); opacity: 0.8; }
+        :root { --primary: #1b5e20; --secondary: #1565c0; --bg: #f4f7f6; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--bg); padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 25px rgba(0,0,0,0.1); width: 100%; max-width: 850px; border-top: 10px solid var(--primary); margin-bottom: 30px; box-sizing: border-box; }
+        h2 { color: var(--primary); text-align: center; margin-bottom: 20px; }
+        .input-group { margin-bottom: 15px; padding: 15px; background: #f1f3f4; border-radius: 8px; border: 1px solid #ddd; }
+        label { font-weight: bold; display: block; margin-bottom: 8px; font-size: 14px; color: #333; }
+        input[type="text"], input[type="file"], select { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 16px; background: white; }
+        textarea { width: 100%; min-height: 450px; padding: 20px; border: 1px solid #bbb; border-radius: 8px; font-size: 18px; line-height: 1.8; resize: none; overflow: hidden; background: #fff; white-space: pre-wrap; box-sizing: border-box; color: #000; }
+        .save-row { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-main { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1; font-size: 16px; transition: 0.3s; }
+        #signCanvas { border: 1px solid #999; background: #fff; width: 100%; max-width: 300px; height: 120px; display: block; margin: 10px auto; touch-action: none; border-radius: 4px; }
+        #finalSignContainer { text-align: right; width: 100%; padding-top: 30px; display: none; }
+        #finalSign { max-width: 170px; height: auto; border-top: 1px solid #000; padding-top: 5px; display: inline-block; }
+        
+        @media print {
+            .input-group, button, #signCanvas, .save-row, h2, h3, hr, .merger-box { display: none !important; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none !important; border: none !important; width: 100% !important; max-width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            textarea { border: none !important; height: auto !important; overflow: visible !important; font-family: "Times New Roman", serif; font-size: 13pt !important; line-height: 1.8; color: black !important; padding: 0 !important; orphans: 3; widows: 3; }
+            #finalSignContainer { display: block !important; }
+            @page { margin: 25mm 15mm; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h2>Subhash Pro Saver</h2>
-    <textarea id="userInput" placeholder="यहाँ हिंदी या अंग्रेजी में लिखें..."></textarea>
+    <h2>Subhash Pro Saver ✨</h2>
+
+    <div class="input-group">
+        <label>1. फाइल का शीर्षक और PDF डेटा एक्सट्रैक्टर:</label>
+        <input type="text" id="fileNameInput" placeholder="फाइल का नाम यहाँ लिखें...">
+        <input type="file" id="pdfToEdit" accept=".pdf" style="margin-top:10px;" onchange="extractTextWithFormat()">
+        <p id="status" style="font-size:12px; color:var(--secondary); margin-top:5px; font-weight:bold;"></p>
+    </div>
+
+    <textarea id="userInput" placeholder="अपना कंटेंट यहाँ लिखें (हिंदी/English)..." oninput="autoSize(this)"></textarea>
     
-    <div class="button-grid">
-        <button class="btn-txt" onclick="saveFile('txt')">Save as TEXT</button>
-        <button class="btn-doc" onclick="saveFile('doc')">Save as WORD</button>
-        <button class="btn-html" onclick="saveFile('html')">Save as HTML</button>
-        <button class="btn-print" onclick="window.print()">PRINT / PDF बनाएँ</button>
+    <div class="input-group" style="text-align:center;">
+        <label>2. हस्ताक्षर (Signature) विकल्प:</label>
+        <div style="display:flex; flex-wrap:wrap; gap:15px; justify-content:center;">
+            <div style="flex:1; min-width:220px; border-right: 1px solid #ddd; padding-right: 10px;">
+                <p style="font-size:12px; color:#555;">कागज वाले साइन की फोटो अपलोड करें:</p>
+                <input type="file" accept="image/*" onchange="loadSignPhoto(event)">
+            </div>
+            <div style="flex:1; min-width:220px;">
+                <p style="font-size:12px; color:#555;">या यहाँ हाथ से साइन करें:</p>
+                <canvas id="signCanvas"></canvas>
+                <button onclick="clearSign()" style="background:#d32f2f; color:white; border:none; padding:5px 15px; cursor:pointer; border-radius:4px; font-size:12px;">साफ करें (Reset)</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="finalSignContainer">
+        <img id="finalSign" src="" alt="Authorized Sign">
+    </div>
+
+    <div class="save-row">
+        <select id="formatSelect" onchange="updateButtonText()">
+            <option value="pdf">Create PDF (प्रोफेशनल लुक)</option>
+            <option value="txt">Save Text (.txt फाइल)</option>
+            <option value="doc">Save Word (.doc फाइल)</option>
+        </select>
+        <button id="mainGoBtn" class="btn-main" onclick="handleSaveAction()">Create PDF</button>
     </div>
 </div>
 
+<div class="container merger-box" style="border-top: 10px solid var(--secondary);">
+    <h3 style="color:var(--secondary); text-align:center; margin-top:0;">PDF Merger 📂</h3>
+    <label>फाइलें चुनें जिन्हें एक साथ जोड़ना है:</label>
+    <input type="file" id="pdfFiles" accept=".pdf" multiple>
+    <button onclick="mergeAllPDFs()" style="width:100%; margin-top:15px; background:var(--secondary); color:white; border:none; padding:15px; border-radius:8px; cursor:pointer; font-weight:bold;">Merge & Download PDFs</button>
+</div>
+
 <script>
-    function saveFile(type) {
-        const text = document.getElementById('userInput').value;
-        if (!text) { alert("कृपया कुछ लिखें!"); return; }
+    pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.worker.min.js';
+    const canvas = document.getElementById('signCanvas');
+    const ctx = canvas.getContext('2d');
+    const finalSignImg = document.getElementById('finalSign');
+    const textArea = document.getElementById('userInput');
+    let drawing = false;
 
-        let fileName = "Subhash_File." + type;
-        let mimeType = "text/plain";
-        let content = text;
+    // Advanced Handwriting Logic
+    const getPos = (e) => {
+        const rect = canvas.getBoundingClientRect();
+        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+        return { x: clientX - rect.left, y: clientY - rect.top };
+    };
+    const start = (e) => { drawing = true; const pos = getPos(e); ctx.beginPath(); ctx.moveTo(pos.x, pos.y); };
+    const move = (e) => { if(!drawing) return; const pos = getPos(e); ctx.lineTo(pos.x, pos.y); ctx.stroke(); };
+    const stop = () => { drawing = false; ctx.closePath(); };
 
-        if (type === 'doc') {
-            mimeType = "application/msword";
-            content = "\ufeff" + text; 
-        } else if (type === 'html') {
-            mimeType = "text/html";
-            content = `<html><head><meta charset="UTF-8"></head><body><p style="font-size:20px;">${text.replace(/\n/g, "<br>")}</p></body></html>`;
+    canvas.addEventListener('mousedown', start); canvas.addEventListener('mousemove', move); window.addEventListener('mouseup', stop);
+    canvas.addEventListener('touchstart', (e) => { start(e); e.preventDefault(); }, {passive:false});
+    canvas.addEventListener('touchmove', (e) => { move(e); e.preventDefault(); }, {passive:false});
+    canvas.addEventListener('touchend', stop);
+
+    function clearSign() { ctx.clearRect(0, 0, canvas.width, canvas.height); finalSignImg.src = ""; }
+    
+    function loadSignPhoto(event) {
+        const reader = new FileReader();
+        reader.onload = () => { finalSignImg.src = reader.result; alert("सिग्नेचर फोटो सफलतापुर्वक जोड़ दी गई है।"); };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    function updateButtonText() {
+        const format = document.getElementById('formatSelect').value;
+        const btn = document.getElementById('mainGoBtn');
+        btn.innerText = format === 'pdf' ? "Create PDF" : (format === 'txt' ? "Save Text File" : "Save Word File");
+    }
+
+    function autoSize(el) { el.style.height = "auto"; el.style.height = (el.scrollHeight) + "px"; localStorage.setItem('subhash_gold_2026', el.value); }
+    window.onload = () => { textArea.value = localStorage.getItem('subhash_gold_2026') || ""; autoSize(textArea); updateButtonText(); };
+
+    function handleSaveAction() {
+        const format = document.getElementById('formatSelect').value;
+        const name = document.getElementById('fileNameInput').value.trim() || "Document";
+        if(format === 'pdf') {
+            if(!finalSignImg.src || finalSignImg.src.includes(window.location.host)) finalSignImg.src = canvas.toDataURL();
+            document.title = name; window.print();
+        } else {
+            // High compatibility for Hindi text in Word/Notepad
+            const unicodeBOM = "\uFEFF";
+            const blob = new Blob([unicodeBOM + textArea.value], {type: "text/plain;charset=utf-8"});
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob); link.download = `${name}.${format}`; link.click();
         }
+    }
 
-        const blob = new Blob([content], { type: mimeType });
-        const link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = fileName;
-        link.click();
+    async function extractTextWithFormat() {
+        const file = document.getElementById('pdfToEdit').files[0];
+        if(!file) return;
+        const status = document.getElementById('status');
+        status.innerText = "⏳ टेक्स्ट निकाला जा रहा है... कृपया रुकें।";
+        try {
+            const reader = new FileReader();
+            reader.onload = async function() {
+                const pdf = await pdfjsLib.getDocument({data: new Uint8Array(this.result)}).promise;
+                let fullText = "";
+                for(let i=1; i<=pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const content = await page.getTextContent();
+                    fullText += content.items.map(s => s.str).join(" ") + "\n\n";
+                }
+                textArea.value = fullText; autoSize(textArea);
+                status.innerText = "✅ लोड हो गया!";
+                setTimeout(() => status.innerText = "", 5000);
+            };
+            reader.readAsArrayBuffer(file);
+        } catch(e) { status.innerText = "❌ एरर आई।"; }
+    }
+
+    async function mergeAllPDFs() {
+        const files = document.getElementById('pdfFiles').files;
+        if(files.length < 2) { alert("कम से कम 2 फाइलें चुनें!"); return; }
+        const btn = event.target; btn.innerText = "⏳ Merging...";
+        try {
+            const mergedPdf = await PDFLib.PDFDocument.create();
+            for(const file of files) {
+                const pdf = await PDFLib.PDFDocument.load(await file.arrayBuffer());
+                const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                pages.forEach(p => mergedPdf.addPage(p));
+            }
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(new Blob([await mergedPdf.save()], {type:'application/pdf'}));
+            link.download = "Merged_Document.pdf"; link.click();
+        } catch(e) { alert("मर्ज करने में दिक्कत आई।"); }
+        finally { btn.innerText = "Merge & Download PDFs"; }
     }
 </script>
 
