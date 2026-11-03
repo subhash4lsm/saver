@@ -1,1 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy and Terms of Service - Smart Portal</title>
+  <style>
+    :root {
+      --bg-color: #0b1120;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #38bdf8;
+      --border-color: #334155;
+      --highlight: #f59e0b;
+      --badge-bg: #065f46;
+      --badge-text: #34d399;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; }
+    body { background-color: var(--bg-color); color: var(--text-main); line-height: 1.7; padding: 24px 16px; }
+    .container { max-width: 860px; margin: 0 auto; }
+    header { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 28px; margin-bottom: 24px; text-align: center; }
+    h1 { font-size: 26px; color: var(--accent); margin-bottom: 8px; }
+    .meta-tag { font-size: 13.5px; color: var(--text-muted); }
+    nav.toc { background: #0f172a; border: 1px solid var(--border-color); border-radius: 8px; padding: 18px; margin-bottom: 24px; }
+    nav.toc h2 { font-size: 16px; color: var(--highlight); margin-bottom: 12px; }
+    nav.toc ul { list-style: none; display: flex; flex-wrap: wrap; gap: 10px; }
+    nav.toc a { color: var(--accent); text-decoration: none; font-size: 13.5px; background: var(--card-bg); padding: 8px 14px; border-radius: 6px; border: 1px solid var(--border-color); }
+    nav.toc a:hover { background: var(--accent); color: var(--bg-color); }
+    section { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 26px; margin-bottom: 24px; }
+    h2.section-title { font-size: 20px; color: var(--accent); margin-bottom: 16px; border-bottom: 2px solid var(--border-color); padding-bottom: 8px; }
+    h3 { font-size: 16px; color: var(--highlight); margin: 20px 0 8px 0; }
+    p { margin-bottom: 14px; font-size: 14.5px; color: #e2e8f0; }
+    ul { margin: 10px 0 16px 22px; font-size: 14.5px; color: #cbd5e1; }
+    li { margin-bottom: 8px; }
+    .badge { display: inline-block; background: var(--badge-bg); color: var(--badge-text); font-size: 12.5px; font-weight: bold; padding: 4px 10px; border-radius: 6px; margin-bottom: 14px; }
+    .disclaimer-box { background: rgba(245, 158, 11, 0.1); border-left: 4px solid var(--highlight); padding: 14px 18px; border-radius: 4px; margin: 18px 0; font-size: 14px; }
+    footer { text-align: center; padding: 24px 0; font-size: 13px; color: var(--text-muted); border-top: 1px solid var(--border-color); }
+    a { color: var(--accent); }
+    code { background: #0f172a; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #38bdf8; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header role="banner">
+      <h1>Smart Portal</h1>
+      <p style="font-size: 16px; color: var(--text-muted); margin-bottom: 8px;">Privacy Policy &amp; Terms of Service</p>
+      <div class="meta-tag">Effective Date: November 2026 | Version: 1.0</div>
+    </header>
+
+    <nav class="toc" aria-label="Table of Contents">
+      <h2>Table of Contents</h2>
+      <ul>
+        <li><a href="#privacy">1. Privacy Policy &amp; Zero Data</a></li>
+        <li><a href="#permissions">2. Device Permissions &amp; Usage</a></li>
+        <li><a href="#third-party">3. External Links &amp; Third-Party Services</a></li>
+        <li><a href="#terms">4. Terms of Use</a></li>
+        <li><a href="#disclaimer">5. Legal Disclaimers</a></li>
+        <li><a href="#contact">6. Developer &amp; Contact Info</a></li>
+      </ul>
+    </nav>
+
+    <!-- SECTION 1: PRIVACY POLICY -->
+    <section id="privacy" aria-labelledby="privacy-heading">
+      <h2 class="section-title" id="privacy-heading">1. Privacy Policy (Zero Data Collection)</h2>
+      <span class="badge">&#10003; 100% Zero Data Collection &amp; Completely Ad-Free</span>
+      <p>
+        <strong>Smart Portal</strong> is committed to protecting your privacy. This application is completely <strong>ad-free</strong> and does not integrate any third-party commercial advertisements, analytics SDKs, trackers, or marketing profiling libraries.
+      </p>
+      <p>
+        The application does not collect, record, transmit, sell, or rent any personally identifiable information (such as your name, mobile number, email, precise location history, or unique device identifier) to any external server or third party. All calculations, document editing, and accessibility operations are executed entirely on your local mobile device.
+      </p>
+    </section>
+
+    <!-- SECTION 2: PERMISSIONS -->
+    <section id="permissions" aria-labelledby="permissions-heading">
+      <h2 class="section-title" id="permissions-heading">2. Device Permissions &amp; Specific Purposes</h2>
+      <p>
+        Smart Portal requests only the minimum runtime permissions necessary to deliver its assistive utilities and core functions:
+      </p>
+
+      <h3>A. Location (GPS &amp; Network Provider)</h3>
+      <p>
+        <strong>Permission:</strong> <code>ACCESS_FINE_LOCATION</code>, <code>ACCESS_COARSE_LOCATION</code><br>
+        <strong>Purpose:</strong> Used exclusively by the <strong>Sathi Guide</strong> module to calculate real-time orientation, heading, movement speed, and coordinate data to assist visually impaired and everyday users. This spatial information is processed strictly within device memory in real time and is neither logged nor transmitted remotely.
+      </p>
+
+      <h3>B. Camera &amp; Flashlight</h3>
+      <p>
+        <strong>Permission:</strong> <code>CAMERA</code><br>
+        <strong>Purpose:</strong> Utilized by the <strong>Divyang Toolkit</strong> for convenient flashlight toggling and by the <strong>Smart Scanner</strong> utility for scanning and digitizing printed documents. The app never captures, stores, or transmits photographic or video content without explicit user action.
+      </p>
+
+      <h3>C. Microphone &amp; Audio Recording</h3>
+      <p>
+        <strong>Permission:</strong> <code>RECORD_AUDIO</code><br>
+        <strong>Purpose:</strong> Employed for voice typing (Speech-to-Text) assistance and audio processing features such as the <strong>Karaoke Studio</strong>. Audio input is handled solely for instantaneous speech-to-text recognition and local audio synthesis. No voice samples are stored or uploaded.
+      </p>
+
+      <h3>D. Storage, Media &amp; Downloads</h3>
+      <p>
+        <strong>Permission:</strong> <code>READ_MEDIA_IMAGES</code>, <code>READ_MEDIA_AUDIO</code>, <code>READ_EXTERNAL_STORAGE</code><br>
+        <strong>Purpose:</strong> Enables users to save generated official letters, PDF documents, and audio recordings directly to the device's public <strong>Downloads</strong> directory, as well as to select user-specified images or files for document editing.
+      </p>
+
+      <h3>E. Foreground Service &amp; Media Playback</h3>
+      <p>
+        <strong>Permission:</strong> <code>FOREGROUND_SERVICE_MEDIA_PLAYBACK</code>, <code>WAKE_LOCK</code>, <code>POST_NOTIFICATIONS</code><br>
+        <strong>Purpose:</strong> Required to guarantee punctual timetable chime alerts for the <strong>School Bell</strong> service and uninterrupted background streaming for <strong>All India Radio</strong> stations when the device screen is switched off or locked. A visible persistent status notification is displayed whenever the background service is running.
+      </p>
+    </section>
+
+    <!-- SECTION 3: THIRD-PARTY LINKS & FIREBASE -->
+    <section id="third-party" aria-labelledby="thirdparty-heading">
+      <h2 class="section-title" id="thirdparty-heading">3. External Links &amp; Third-Party Services</h2>
+      <p>
+        Smart Portal serves as an accessible aggregator and utility portal providing convenient entry points to recognized external platforms:
+      </p>
+      <ul>
+        <li><strong>Government Portals:</strong> Convenient links to publicly accessible educational and departmental services including Shala Darpan, Income Tax Department, Gyan Sankalp Portal, and Rajasthan Single Sign-On (SSO).</li>
+        <li><strong>E-Commerce Portals:</strong> Direct accessible links to verified shopping platforms including Amazon, Flipkart, and Snapdeal.</li>
+        <li><strong>Multi-Calendar &amp; Google Firebase:</strong> The Multi-Calendar feature connects securely to a <strong>Google Firebase</strong> database solely to retrieve up-to-date, dynamically synchronized calendar dates, school timetables, and festival calendars. No user personal identity or personal data is collected by or written to Firebase.</li>
+        <li><strong>External Web Links &amp; Channels:</strong> Links to external platforms, including YouTube channels or educational resources, launch directly into your default web browser or official apps.</li>
+      </ul>
+      <div class="disclaimer-box">
+        <strong>Third-Party Disclaimer:</strong> External websites maintain their own independent terms and privacy practices. Smart Portal neither governs nor assumes liability for the content, privacy protocols, or transactional operations of any third-party websites or services.
+      </div>
+    </section>
+
+    <!-- SECTION 4: TERMS OF USE -->
+    <section id="terms" aria-labelledby="terms-heading">
+      <h2 class="section-title" id="terms-heading">4. Terms of Use</h2>
+      <p>By installing or using Smart Portal, you agree to the following terms and operating conditions:</p>
+      <ul>
+        <li><strong>Free Community Utility:</strong> Smart Portal is distributed as a non-commercial, free-of-cost application dedicated to educational productivity, public convenience, and assistive accessibility for Divyang persons.</li>
+        <li><strong>Lawful &amp; Responsible Use:</strong> Users agree to employ the application, its letter pad document editor, and related utilities in compliance with applicable local laws and regulations.</li>
+        <li><strong>Broadcast Media Content:</strong> All live radio streams (All India Radio / Akashvani and Waves Network) are publicly available HLS broadcasts. All intellectual property rights, trademarks, and broadcast rights belong strictly to their respective broadcasting organizations (Prasar Bharati / All India Radio).</li>
+      </ul>
+    </section>
+
+    <!-- SECTION 5: LEGAL DISCLAIMERS -->
+    <section id="disclaimer" aria-labelledby="disclaimer-heading">
+      <h2 class="section-title" id="disclaimer-heading">5. Legal Disclaimers</h2>
+      <div class="disclaimer-box">
+        <ul>
+          <li><strong>Non-Governmental Affiliation:</strong> Smart Portal is an independent mobile application developed by an individual developer. It is <strong>NOT</strong> an official application of, nor endorsed by, any government ministry, department, or statutory agency. Official portal links are provided purely as a public convenience.</li>
+          <li><strong>School Bell &amp; Alarm Automation:</strong> Timed alerts rely upon hardware state, battery power levels, and operating system background optimization routines. The developer disclaims legal liability for missed alarms arising from depleted batteries, forceful OS termination, or user configuration inaccuracies.</li>
+          <li><strong>Sathi Guide Accuracy:</strong> Positional and navigation data depends on satellite GPS signal reception, weather conditions, and hardware sensors. The guidance provided is assistive in nature, and users are encouraged to maintain independent physical vigilance.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION 6: CONTACT INFORMATION -->
+    <section id="contact" aria-labelledby="contact-heading">
+      <h2 class="section-title" id="contact-heading">6. Developer &amp; Contact Information</h2>
+      <p>For any queries, feedback, or technical inquiries regarding this Privacy Policy and Terms of Service, please reach out to:</p>
+      <ul style="list-style: none; margin-left: 0;">
+        <li><strong>Developer:</strong> Subhash Chandra Sharma</li>
+        <li><strong>Application:</strong> Smart Portal</li>
+        <li><strong>Email:</strong> <a href="mailto:subhashsharma.4lsm@gmail.com">subhashsharma.4lsm@gmail.com</a></li>
+        <li><strong>Location:</strong> Rajasthan, India</li>
+      </ul>
+    </section>
+
+    <footer role="contentinfo">
+      <p>&copy; 2026 Smart Portal. All Rights Reserved.</p>
+      <p>Committed to Accessibility, Education, and Data Privacy.</p>
+    </footer>
+  </div>
+</body>
+</html>
 
